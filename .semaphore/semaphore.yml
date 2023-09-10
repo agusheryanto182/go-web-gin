@@ -39,15 +39,15 @@ blocks:
       jobs:
         - name: Build
           commands:
-            - sem-version go 1.21.1
-            - export GO111MODULE=on
-            - export GOPATH=~/go
-            - 'export PATH=/home/semaphore/go/bin:$PATH'
-            - checkout
-            - cache restore
-            - go mod vendor
-            - cache store
+            - go build -v -o go-gin-app
+            - artifact push project --force go-gin-app
       prologue:
         commands:
-          - go build -v -o go-gin-app
-          - artifact push project --force go-gin-app
+          - sem-version go 1.21.1
+          - export GO111MODULE=on
+          - export GOPATH=~/go
+          - 'export PATH=/home/semaphore/go/bin:$PATH'
+          - checkout
+          - cache restore
+          - go mod vendor
+          - cache store
