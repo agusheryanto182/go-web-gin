@@ -20,6 +20,16 @@ blocks:
             - cache store
   - name: Test
     task:
+      prologue:
+        commands:
+          - sem-version go 1.21.1
+          - export GO111MODULE=on
+          - export GOPATH=~/go
+          - 'export PATH=/home/semaphore/go/bin:$PATH'
+          - checkout
+          - cache restore
+          - go mod vendor
+          - cache store
       jobs:
         - name: Unitest
           commands:
